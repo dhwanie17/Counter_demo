@@ -1,23 +1,62 @@
-import logo from './logo.svg';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 
 function App() {
+  const [count, setCount] = useState(1);
+  const [style, SetStyle] = useState({
+    color: '#bdbdbd',
+    cursor: 'not-allowed',
+    backgroundcolor: '#ede7f6',
+  });
+  const IncNum = () => {
+    if (style.color === '#bdbdbd') {
+      SetStyle({
+        color: '#f44336',
+        background: 'ede7f6',
+      });
+    }
+    setCount(count + 1);
+  };
+
+  useEffect(() => {
+    if (count === 0) {
+      SetStyle({
+        color: '#bdbdbd',
+        cursor: 'not-allowed',
+        backgroundcolor: '#ede7f6',
+      });
+    }
+  }, [count]);
+  const DecNum = () => {
+    setCount(count - 1);
+  };
+
+  const reset = () => {
+    setCount(0);
+    SetStyle({
+      color: '#bdbdbd',
+      cursor: 'not-allowed',
+      backgroundcolor: '#ede7f6',
+    });
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div id="mainDiv">
+      <div id="operation1">
+        <button onClick={DecNum} id="sub" style={style} disabled={count === 0}>
+          -
+        </button>
+        <div id="count">
+          <div>{count}</div>
+        </div>
+        <button onClick={IncNum} id="add">
+          +
+        </button>
+      </div>
+      <div>
+        <button onClick={reset} id="reset">
+          Reset
+        </button>
+      </div>
     </div>
   );
 }
